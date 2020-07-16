@@ -3,9 +3,12 @@
 import Vue from 'vue'
 import App from './App'
 import VueResource from 'vue-resource'
+import VueRouter from 'vue-router'
+import Routes from './routes'
 Vue.config.productionTip = false
 
 Vue.use(VueResource)
+Vue.use(VueRouter)
 
 //自定义指令
 // Vue.directive("rainbow",{
@@ -36,9 +39,15 @@ Vue.filter("snippet",function(value){
   return value.slice(0,100)
 })
 
+const router = new VueRouter({
+  routes:Routes,
+  mode:"history"
+})
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
+  router,
   components: { App },
   template: '<App/>'
 })
