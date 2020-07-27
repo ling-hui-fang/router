@@ -55,9 +55,10 @@ export default {
     }
   },
   created(){
-    if(this.$route.query.alert){
-      this.alert = this.$route.query.alert;
-    }
+    console.log(this.$route.query.alert)
+    // if(this.$route.query.alert){
+    //   this.alert = this.$route.query.alert;
+    // }
     this.fetchCustomers()
   },
  

@@ -7,7 +7,7 @@
         <h4>用户信息</h4>
         <div class="form-group">
           <label>姓名</label>
-          <input type="text" class="form-control" v-model="customer.name" placeholder="name">
+          <input type="text" class="form-control"  placeholder="name" v-model="customer.name">
         </div>
         <div class="form-group">
           <label>电话</label>
@@ -70,7 +70,7 @@ export default {
         this.$http.post("http://localhost:3000/users",newCustomer)
         .then(function(response){
           this.$router.push({path:"/",query:{alert:'用户信息添加成功！'}})
-          console.log(response);
+          // console.log(response);
           e.preventDefault()
         })
       }
