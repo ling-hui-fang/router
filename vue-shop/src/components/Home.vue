@@ -18,6 +18,8 @@
                    unique-opened
                    :collapse="isCollapse"
                    :collapse-transition="false"
+                   router
+                   :default-active = activePath
                   >
                   <!-- :unique-opened="true" -->
             <!-- 一级菜单 -->
@@ -31,7 +33,11 @@
               </template>
 
                 <!-- 二级菜单 -->
-                <el-menu-item :index="subItem.id + ''" v-for="subItem in item.children">
+                <el-menu-item :index="'/'+ subItem.path" 
+                              v-for="subItem in item.children" 
+                              :key="subItem.id"
+                              @click="saveNavState('/'+subItem.path)"
+                              >
                   <template slot="title">
                     <i class="el-icon-menu"></i>
                     <span>{{subItem.authName}}</span>
@@ -63,11 +69,13 @@ export default {
         "102":"iconfont icon-dingdanguanli",
         "145":"iconfont icon-icon-test"
       },
-      isCollapse:false
+      isCollapse:false,
+      activePath:""
     }
   },
   created(){
     this.getmenuList()
+    this.activePath = window.sessionStorage.getItem('activePath')
   },
   methods:{
     logout(){
@@ -84,6 +92,11 @@ export default {
     //切换菜单折叠与展开
     toggleCollapse(){
       this.isCollapse = !this.isCollapse
+    },
+    //保存连接的激活状态
+    saveNavState(activePath){
+      window.sessionStorage.setItem('activePath',activePath);
+      this.activePath = activePath
     }
   }
 }
