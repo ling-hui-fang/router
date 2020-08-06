@@ -116,7 +116,8 @@
       <el-dialog
       title="分配角色"
       :visible.sync="setRoleDialogVisible"
-      width="50%">
+      width="50%"
+      @close="setRoleDialogClosed">
       <div>
         <p>当前用户: {{userInfo.username}}</p>
         <p>当前角色: {{userInfo.role_name}}</p>
@@ -135,7 +136,7 @@
       </div>
       <span slot="footer" class="dialog-footer">
         <el-button @click="setRoleDialogVisible = false">取 消</el-button>
-        <el-button type="primary" @click="setRoleDialogVisible = false">确 定</el-button>
+        <el-button type="primary" @click="saveRoleInfo">确 定</el-button>
       </span>
     </el-dialog>
 
@@ -229,7 +230,7 @@ export default {
   methods:{
     async getUserList(){
       const {data:res} = await this.$http.get('users',{params:this.queryInfo})
-      console.log(res);
+      // console.log(res);
       if(res.meta.status != 200)  return this.$message.error('获取用户列表失败')
       this.userlist = res.data.users
       this.total = res.data.total
@@ -348,10 +349,31 @@ export default {
         return this.$message.error('获取角色列表失败')
       }
       this.rolesList = res.data
-      console.log(res);
+      // console.log(res);
 
       this.setRoleDialogVisible = true  
       
+    },
+    //点击按钮，分配角色
+    async saveRoleInfo(){
+      if(!this.selectedRoleId){
+        this.$message.error('请选择要分配的角色')
+      }
+      const {data:res} = await this.$http.put(`users/${this.userInfo.id}/role`,{
+        rid:this.selectedRoleId
+      })
+      console.log(res);
+      if(res.meta.status !== 200){
+        return this.$message.error('更新角色失败')
+      }
+      this.$message.success('更新角色成功')
+      this.getUserList()
+      this.setRoleDialogVisible = false
+    },
+    //监听分配角色对话框的关闭事件
+    setRoleDialogClosed(){
+      this.selectedRoleId = ""
+      this.userInfo = {} 
     }
   
   }
