@@ -27,3 +27,6 @@ html,body,#app{
 .el-step__title{
     font-size:13px;
 }
+.ql-container{
+   min-height:300px;
+}
