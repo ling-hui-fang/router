@@ -22,7 +22,7 @@ const Roles = () => import(/* webpackChunkName: "users_rights_roles" */ '../comp
 // import Cate from '../components/goods/Cate'
 const Cate = () => import(/* webpackChunkName: "cate_roles" */ '../components/goods/Cate')
 // import Params from '../components/goods/Params'
-const Roles = () => import(/* webpackChunkName: "cate_roles" */ '../components/goods/Params')
+const Params = () => import(/* webpackChunkName: "cate_roles" */ '../components/goods/Params')
 
 
 // import GoodsList from '../components/goods/List'
